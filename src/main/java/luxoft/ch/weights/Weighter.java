@@ -2,11 +2,10 @@ package luxoft.ch.weights;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Weighter {
 
-	private record Solution(int leftNumber1, int leftNumber2, int rightNumber1, int rightNumber2) {
+	record Solution(int leftNumber1, int leftNumber2, int rightNumber1, int rightNumber2) {
 		@Override
 		public String toString() {
 			return "[%d,%d - %d,%d]".formatted(leftNumber1, leftNumber2, rightNumber1, rightNumber2);
@@ -48,9 +47,10 @@ public class Weighter {
 	}
 
 	public static void main(String... args) {
-		var weighter = new Weighter(100, 10, 5, 4, 25);
-		System.out.println(weighter.solve().stream().map(Solution::toString).collect(Collectors.joining("\n")));
-
+		long start = System.currentTimeMillis();
+		var weighter = new Weighter(10000, 1000, 5, 400, 25);
+		weighter.solve().stream().map(Solution::toString).forEach(System.out::println);
+		System.out.printf("%nSolution found in %d msec%n", System.currentTimeMillis() - start);
 	}
 
 }
